@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'api/pokemon.dart';
 
@@ -11,9 +12,11 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Container(child: Text(title),
+        ),
         backgroundColor: Colors.red,
       ),
+      
       body: FutureBuilder<List<Dados>>(
         future: dados(),
         builder: (context, snapshot) {
@@ -82,14 +85,42 @@ class PokemonsList extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
-                                      color: Colors.grey[400],
-                                      border: Border.all(
-                                      color: Colors.black45,
-                                      width: 2.0,
-                                      )
-                                    ),
+                  color: pokemons[index].type == "Grass"
+                      ? Colors.greenAccent
+                      : pokemons[index].type == "Fire"
+                          ? Colors.redAccent
+                          : pokemons[index].type == "Water"
+                              ? Colors.blue
+                              : pokemons[index].type == "Poison"
+                                  ? Colors.deepPurpleAccent
+                                  : pokemons[index].type == "Electric"
+                                      ? Colors.amber
+                                      : pokemons[index].type == "Rock"
+                                          ? Colors.grey
+                                          : pokemons[index].type == "Ground"
+                                              ? Colors.brown
+                                              : pokemons[index].type ==
+                                                      "Psychic"
+                                                  ? Colors.indigo
+                                                  : pokemons[index].type ==
+                                                          "Fighting"
+                                                      ? Colors.orange
+                                                      : pokemons[index].type ==
+                                                              "Bug"
+                                                          ? Colors
+                                                              .lightGreenAccent
+                                                          : pokemons[index]
+                                                                      .type ==
+                                                                  "Ghost"
+                                                              ? Colors
+                                                                  .deepPurple
+                                                              : pokemons[index]
+                                                                          .type ==
+                                                                      "Normal"
+                                                                  ? Colors
+                                                                      .black26
+                                                                  : Colors.pink,
+                  borderRadius: BorderRadius.all(Radius.circular(25))),
                                     width: MediaQuery.of(context).size.width,
                                     height: 200,
                                     child: Image.network(
@@ -106,7 +137,7 @@ class PokemonsList extends StatelessWidget {
                                         topLeft: Radius.circular(10),
                                         topRight: Radius.circular(10)
                                         ),
-                                    color: Colors.grey,
+                                    color: Color.fromARGB(255, 158, 158, 158),
                                     border: Border.all(
                                       color: Colors.black45,
                                       width: 2.0,
