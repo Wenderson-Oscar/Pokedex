@@ -92,23 +92,24 @@ class PokemonApi {
   static Future<List<Pokemon>> _fetchFromPokeApi() async {
     List<Pokemon> pokemons = [];
     
-    // Busca os primeiros 50 Pokémon para teste (depois podemos aumentar)
-    for (int i = 1; i <= 50; i++) {
+    // Busca os primeiros 150 Pokémon (Geração 1 completa)
+    for (int i = 1; i <= 150; i++) {
       try {
         final response = await http.get(
           Uri.parse('$pokeApiBase/$i'),
           headers: {
             'Accept': 'application/json',
           },
-        ).timeout(Duration(seconds: 10));
+        ).timeout(const Duration(seconds: 10));
         
         if (response.statusCode == 200) {
           final pokemonData = json.decode(response.body);
           final pokemon = Pokemon.fromPokeApi(pokemonData);
           pokemons.add(pokemon);
           
-          if (i == 1) {
-            log('First Pokemon from PokeAPI: ${pokemon.name}, Image: ${pokemon.imageUrl}');
+          // Log apenas alguns para não poluir o console
+          if (i == 1 || i == 50 || i == 100 || i == 150) {
+            log('Pokemon #$i from PokeAPI: ${pokemon.name}, Image: ${pokemon.imageUrl}');
           }
         }
       } catch (e) {
@@ -193,15 +194,15 @@ class Dados {
   }
 
   Map <String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['img'] = this.img;
-    data['num'] = this.num;
-    data['type'] = this.type;
-    data['height'] = this.height;
-    data['weight'] = this.weight;
-    data['weaknesses'] = this.weaknesses;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['img'] = img;
+    data['num'] = num;
+    data['type'] = type;
+    data['height'] = height;
+    data['weight'] = weight;
+    data['weaknesses'] = weaknesses;
     return data;
   }
 }

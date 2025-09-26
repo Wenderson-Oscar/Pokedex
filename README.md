@@ -2,8 +2,7 @@
 
 A new Flutter project.
 
-<img src="interface_home.png">
-<img src="detail_poke.png">
+<img src="new_pokedex.png" width="300">
 
 ## Getting Started
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'api/pokemon.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage>
                               Colors.blue,
                               Colors.blue.shade800,
                             ],
-                            stops: [0.0, 0.7, 1.0],
+                            stops: const [0.0, 0.7, 1.0],
                           ),
                           border: Border.all(
                             color: Colors.white,
@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage>
                             child: Container(
                               width: 20,
                               height: 20,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                                 boxShadow: [
@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage>
                             Shadow(
                               color: Colors.black.withOpacity(0.5),
                               blurRadius: 3,
-                              offset: Offset(2, 2),
+                              offset: const Offset(2, 2),
                             ),
                           ],
                         ),
@@ -320,7 +320,7 @@ class _MyHomePageState extends State<MyHomePage>
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: 60,
                                   height: 60,
                                   child: Stack(
@@ -411,7 +411,7 @@ class _MyHomePageState extends State<MyHomePage>
 }
 
 class PokemonsList extends StatelessWidget {
-  const PokemonsList({Key? key, required this.pokemons}) : super(key: key);
+  const PokemonsList({super.key, required this.pokemons});
 
   final List<Dados> pokemons;
 
@@ -509,11 +509,11 @@ class PokemonCard extends StatefulWidget {
   final VoidCallback onTap;
 
   const PokemonCard({
-    Key? key,
+    super.key,
     required this.pokemon,
     required this.typeColor,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<PokemonCard> createState() => _PokemonCardState();
@@ -556,12 +556,12 @@ class _PokemonCardState extends State<PokemonCard>
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    const Color(0xFF0F172A), // Fundo escuro tech
-                    const Color(0xFF1E293B),
+                    Color(0xFF0F172A), // Fundo escuro tech
+                    Color(0xFF1E293B),
                   ],
                 ),
                 border: Border.all(
@@ -715,7 +715,7 @@ class _PokemonCardState extends State<PokemonCard>
                                       fit: BoxFit.contain,
                                       loadingBuilder: (context, child, loadingProgress) {
                                         if (loadingProgress == null) return child;
-                                        return Container(
+                                        return SizedBox(
                                           width: 70,
                                           height: 70,
                                           child: Center(
@@ -731,7 +731,7 @@ class _PokemonCardState extends State<PokemonCard>
                                         );
                                       },
                                       errorBuilder: (context, error, stackTrace) {
-                                        return Container(
+                                        return SizedBox(
                                           width: 70,
                                           height: 70,
                                           child: Column(
@@ -807,7 +807,7 @@ class _PokemonCardState extends State<PokemonCard>
 class PokemonDetailPage extends StatefulWidget {
   final Dados pokemon;
 
-  const PokemonDetailPage({Key? key, required this.pokemon}) : super(key: key);
+  const PokemonDetailPage({super.key, required this.pokemon});
 
   @override
   State<PokemonDetailPage> createState() => _PokemonDetailPageState();
@@ -843,6 +843,8 @@ class _PokemonDetailPageState extends State<PokemonDetailPage>
     };
     return typeColors[normalizedType] ?? const Color(0xFFA8A878);
   }
+
+
 
   @override
   void initState() {
@@ -929,7 +931,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage>
                             Colors.grey.shade400,
                             Colors.grey.shade600,
                           ],
-                          stops: [0.0, 0.7, 1.0],
+                          stops: const [0.0, 0.7, 1.0],
                         ),
                         border: Border.all(
                           color: Colors.white,
@@ -978,7 +980,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage>
                             Shadow(
                               color: Colors.black.withOpacity(0.5),
                               blurRadius: 3,
-                              offset: Offset(2, 2),
+                              offset: const Offset(2, 2),
                             ),
                           ],
                         ),
@@ -1208,19 +1210,26 @@ class _PokemonDetailPageState extends State<PokemonDetailPage>
                               ),
                             ],
                           ),
-                          const SizedBox(height: 24),
-                          // Weaknesses section tech style
+                          const SizedBox(height: 16),
+                          // Weaknesses section
                           if (widget.pokemon.weaknesses != null && widget.pokemon.weaknesses!.isNotEmpty) ...[
                             Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Colors.red.withOpacity(0.1),
+                                color: const Color(0xFF0F172A),
                                 borderRadius: BorderRadius.circular(12),
                                 border: Border.all(
-                                  color: Colors.red.withOpacity(0.3),
+                                  color: typeColor.withOpacity(0.5),
                                   width: 1,
                                 ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: typeColor.withOpacity(0.2),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1228,17 +1237,17 @@ class _PokemonDetailPageState extends State<PokemonDetailPage>
                                   Row(
                                     children: [
                                       Icon(
-                                        Icons.warning,
-                                        color: Colors.red.shade300,
+                                        Icons.shield_outlined,
+                                        color: typeColor,
                                         size: 20,
                                       ),
                                       const SizedBox(width: 8),
                                       Text(
-                                        'FRAQUEZAS DETECTADAS',
+                                        'FRAQUEZAS',
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.red.shade300,
+                                          color: typeColor,
                                           letterSpacing: 1,
                                         ),
                                       ),
@@ -1249,23 +1258,24 @@ class _PokemonDetailPageState extends State<PokemonDetailPage>
                                     spacing: 8,
                                     runSpacing: 8,
                                     children: widget.pokemon.weaknesses!.map((weakness) {
+                                      final weaknessColor = getPokemonTypeColor(weakness);
                                       return Container(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 12,
                                           vertical: 6,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Colors.red.withOpacity(0.2),
+                                          color: weaknessColor.withOpacity(0.2),
                                           borderRadius: BorderRadius.circular(8),
                                           border: Border.all(
-                                            color: Colors.red.withOpacity(0.5),
+                                            color: weaknessColor.withOpacity(0.8),
                                             width: 1,
                                           ),
                                         ),
                                         child: Text(
                                           weakness.toUpperCase(),
-                                          style: const TextStyle(
-                                            color: Colors.white,
+                                          style: TextStyle(
+                                            color: weaknessColor,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 10,
                                             letterSpacing: 0.5,
@@ -1381,7 +1391,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage>
           const SizedBox(height: 8),
           Text(
             value,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.white,
