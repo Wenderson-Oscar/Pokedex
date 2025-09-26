@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'api/pokemon.dart';
 import 'package:api_pokemon/home.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,11 +10,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'Lista de Pokemons';
+    const appTitle = 'Pokédex XY';
 
-    return const MaterialApp(
+    return MaterialApp(
       title: appTitle,
-      home: MyHomePage(title: appTitle),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: const Color(0xFF3D7DCA),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF3D7DCA),
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: appTitle),
     );
   }
 }
